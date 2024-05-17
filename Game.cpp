@@ -48,14 +48,14 @@ void Game::pollEvents()
 		case sf::Event::KeyPressed:
 			if (this->ev.key.code == sf::Keyboard::Escape)
 				this->window->close();
-			else if (this->ev.key.code == sf::Keyboard::W)
-				pacMan.move(sf::Vector2f(0, -1));
+			if (this->ev.key.code == sf::Keyboard::W)
+				desiredMove = sf::Vector2f(0, -1);
 			else if (this->ev.key.code == sf::Keyboard::S)
-				pacMan.move(sf::Vector2f(0, 1));
+				desiredMove = sf::Vector2f(0, 1);
 			else if (this->ev.key.code == sf::Keyboard::A)
-				pacMan.move(sf::Vector2f(-1, 0));
+				desiredMove = sf::Vector2f(-1, 0);
 			else if (this->ev.key.code == sf::Keyboard::D)
-				pacMan.move(sf::Vector2f(1, 0));
+				desiredMove = sf::Vector2f(1, 0);
 			break;
 		}
 	}
@@ -64,6 +64,14 @@ void Game::pollEvents()
 void Game::update()
 {
 	this->pollEvents();
+
+	// Draft
+	maintenceMode();
+
+	if (!map.isWallCollision(pacMan, desiredMove)) 
+	{
+		pacMan.move(desiredMove);
+	}
 }
 
 void Game::render()
@@ -75,4 +83,10 @@ void Game::render()
 	pacMan.draw(*window);
 
 	this->window->display();
+}
+
+void Game::maintenceMode()
+{
+	std::cout << "Pacman position: " << pacMan.getPosition().x << " " << pacMan.getPosition().y << "Current Row: " << map.currentRow << " " << "Current Column: " << map.currentColumn << "Border: " << map.collisionArea << "\n";
+	map.showVectorSize();
 }

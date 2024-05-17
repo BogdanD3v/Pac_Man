@@ -15,6 +15,9 @@ public:
 
     void move(sf::Vector2f velocity);
     void draw(sf::RenderWindow& window);
+    sf::Vector2f getPosition();
+    float getRadius();
+    void stop();
 };
 
 

@@ -19,6 +19,7 @@ private:
 	sf::RenderWindow* window;
 	sf::VideoMode videoMode;
 	sf::Event ev;
+	sf::Vector2f desiredMove = sf::Vector2f(0.0f, 0.0f);
 
 	Map map;
 
@@ -40,4 +41,7 @@ public:
 	void pollEvents();
 	void update();
 	void render();
+
+	// Draft
+	void maintenceMode();
 };
