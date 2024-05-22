@@ -17,7 +17,6 @@ public:
     void draw(sf::RenderWindow& window);
     sf::Vector2f getPosition();
     float getRadius();
-    void stop();
 };
 
 

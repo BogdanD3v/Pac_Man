@@ -21,6 +21,11 @@ private:
 	sf::Event ev;
 	sf::Vector2f desiredMove = sf::Vector2f(0.0f, 0.0f);
 
+	sf::Text score;
+	sf::Font font;
+
+	int points = 0;
+
 	Map map;
 
 	PacMan pacMan;
@@ -30,6 +35,8 @@ private:
 	void initializeMap();
 
 	void renderPacMan(sf::RenderWindow& window);
+
+	void initializeUserInterface();
 
 public:
 

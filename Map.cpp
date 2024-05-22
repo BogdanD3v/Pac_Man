@@ -38,6 +38,49 @@ bool Map::loadMapFromFile(const std::string& filename)
     return true;
 }
 
+void Map::loadMapPoints()
+{
+    mapPoints.resize(mapData.size());
+
+    for (size_t i = 0; i < mapData.size(); i++)
+    {
+        mapPoints[i].resize(mapData[i].size());
+        for (size_t j = 0; j < mapData[i].size(); j++)
+        {
+            mapPoints[i][j] = !mapData[i][j];
+        }
+    }
+}
+
+bool Map::isPointCollected(PacMan& pacMan)
+{
+    currentRow = static_cast<int>((pacMan.getPosition().y - offsetY) / tileSize);
+    currentColumn = static_cast<int>(pacMan.getPosition().x / tileSize);
+
+    if (currentColumn > mapData[0].size() - 1)
+        currentColumn = mapData[0].size() - 1;
+
+    if (currentRow > mapData.size() - 1)
+        currentRow = mapData.size() - 1;
+
+    if (mapPoints[currentRow][currentColumn])
+    {
+        mapPoints[currentRow][currentColumn] = false;
+        return true;
+    }
+    else
+        return false;
+    
+}
+
+int Map::loadTextures()
+{
+    if (!pointTexture.loadFromFile("textures/pill.png"))
+        return 1;
+
+    point.setTexture(pointTexture);
+}
+
 bool Map::isWallCollision(PacMan& pacMan, sf::Vector2f desiredMove)
 {
     currentRow = static_cast<int>((pacMan.getPosition().y - offsetY) / tileSize);
@@ -52,6 +95,12 @@ bool Map::isWallCollision(PacMan& pacMan, sf::Vector2f desiredMove)
 
     if (previousColumn < 0)
         previousColumn = 0;
+
+    if (nextRow > mapData.size())
+        nextRow = mapData.size();
+
+    if (nextColumn >= 22)
+        nextColumn = 22;
     
 
     if (desiredMove.y < 0)
@@ -109,7 +158,7 @@ bool Map::isWallCollision(PacMan& pacMan, sf::Vector2f desiredMove)
         if (pacMan.getPosition().x <= collisionArea)
         {
             setCollisionArea = false;
-            collisionArea = 0;
+            collisionArea = -1;
             return true;
         }
     }
@@ -118,16 +167,17 @@ bool Map::isWallCollision(PacMan& pacMan, sf::Vector2f desiredMove)
 
 }
 
-bool Map::load(const std::string& filename)
+void Map::load(const std::string& filename)
 {
-    return loadMapFromFile(filename);
+    loadMapFromFile(filename); 
+    loadTextures();
+    loadMapPoints();
 }
 
 void Map::draw(sf::RenderWindow& window)
 {
     sf::Vector2u windowSize = window.getSize();
     float windowHeight = static_cast<float>(windowSize.y);
-
     float mapHeight = mapData.size() * tileSize;
 
     offsetY = (windowHeight - mapHeight) / 2.0f;
@@ -140,11 +190,19 @@ void Map::draw(sf::RenderWindow& window)
             square.setPosition(x * tileSize, y * tileSize + offsetY);
             square.setFillColor(mapData[y][x] ? wallColor : spaceColor);
             window.draw(square);
+
+            if (mapPoints[y][x])
+            {
+                float pointX = x * tileSize + (tileSize / 2) - (point.getTextureRect().width / 2);
+                float pointY = y * tileSize + offsetY + (tileSize / 2) - (point.getTextureRect().height / 2);
+                point.setPosition(pointX, pointY);
+                window.draw(point);
+            }
         }
     }
 }
 
 void Map::showVectorSize()
 {
-    std::cout << "Wektor rozmiar wiersze: " << mapData.size(); std::cout << " " << "Wektor rozmiar kolumny: "; std::cout << mapData[9].size();
+    std::cout << "Wektor rozmiar wiersze: " << mapData.size(); std::cout << " " << "Wektor rozmiar kolumny: "; std::cout << mapData[11].size();
 }

@@ -8,9 +8,16 @@ PacMan::PacMan(): position(368, 400), velocity(2, 2), color(sf::Color::Yellow)
     shape.setPosition(position);
 }
 
-void PacMan::move(sf::Vector2f _velocity)
+void PacMan::move(sf::Vector2f direction)
 {
-    position = { shape.getPosition().x + (velocity.x * _velocity.x), shape.getPosition().y + (velocity.y * _velocity.y) };
+    position = { shape.getPosition().x + (velocity.x * direction.x), shape.getPosition().y + (velocity.y * direction.y) };
+
+    if (shape.getPosition().x >= 736 && direction.x == 1)
+        position = { 0, 416 };
+
+    else if (shape.getPosition().x <= 0 && direction.x == -1)
+        position = { 736, 416 };
+
     shape.setPosition(position);
 }
 

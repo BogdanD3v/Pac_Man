@@ -8,6 +8,8 @@ void Game::initializeWindow()
 	this->window = new sf::RenderWindow(this->videoMode, "PAC-MAN", sf::Style::Titlebar | sf::Style::Close);
 
 	this->window->setFramerateLimit(60);
+
+	this->initializeUserInterface();
 }
 
 void Game::initializeMap()
@@ -34,6 +36,15 @@ Game::~Game()
 const bool Game::running() const
 {
 	return this->window->isOpen();
+}
+
+void Game::initializeUserInterface()
+{
+	if (!font.loadFromFile("fonts/Sign Rover Layered.ttf")) std::cerr << "Error loading font \n";
+	score.setFont(font);
+	score.setCharacterSize(24);
+	score.setFillColor(sf::Color::White);
+	score.setPosition(10, 10);
 }
 
 void Game::pollEvents()
@@ -65,8 +76,12 @@ void Game::update()
 {
 	this->pollEvents();
 
-	// Draft
-	maintenceMode();
+	if (map.isPointCollected(pacMan))
+	{
+		points++;
+	}
+
+	this->score.setString(std::to_string(points));
 
 	if (!map.isWallCollision(pacMan, desiredMove)) 
 	{
@@ -81,6 +96,8 @@ void Game::render()
 	map.draw(*window);
 
 	pacMan.draw(*window);
+
+	this->window->draw(score);
 
 	this->window->display();
 }
