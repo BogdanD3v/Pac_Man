@@ -2,6 +2,9 @@
 
 #include "Map.h"
 #include "PacMan.h"
+#include "CollisionManager.h"
+#include "UserInterface.h"
+#include "Ghost.h"
 
 #include <iostream>
 #include <vector>
@@ -19,24 +22,28 @@ private:
 	sf::RenderWindow* window;
 	sf::VideoMode videoMode;
 	sf::Event ev;
-	sf::Vector2f desiredMove = sf::Vector2f(0.0f, 0.0f);
 
-	sf::Text score;
-	sf::Font font;
+	std::vector<Ghost*> ghosts;
 
-	int points = 0;
+	int points;
 
 	Map map;
 
 	PacMan pacMan;
 
+	Ghost* ghost;
+
+	CollisionManager collision;
+
+	UserInterface ui;
+
 	void initializeWindow();
 
 	void initializeMap();
 
-	void renderPacMan(sf::RenderWindow& window);
+	void initializeGhosts();
 
-	void initializeUserInterface();
+	void renderPacMan(sf::RenderWindow& window);
 
 public:
 
@@ -48,7 +55,4 @@ public:
 	void pollEvents();
 	void update();
 	void render();
-
-	// Draft
-	void maintenceMode();
 };

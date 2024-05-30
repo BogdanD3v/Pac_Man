@@ -8,13 +8,22 @@ void Game::initializeWindow()
 	this->window = new sf::RenderWindow(this->videoMode, "PAC-MAN", sf::Style::Titlebar | sf::Style::Close);
 
 	this->window->setFramerateLimit(60);
-
-	this->initializeUserInterface();
 }
 
 void Game::initializeMap()
 {
 	map.load("MapScheme.txt");
+}
+
+void Game::initializeGhosts()
+{
+	ghost = new Ghost;
+
+	if (ghost->loadTexture("textures/blinky.png")) 
+	{
+		ghost->setPosition({ 368, 338 });
+		ghosts.push_back(ghost);
+	}
 }
 
 void Game::renderPacMan(sf::RenderWindow& window)
@@ -26,6 +35,8 @@ Game::Game()
 {
 	this->initializeWindow();
 	this->initializeMap();
+	this->initializeGhosts();
+	this->points = 0;
 }
 
 Game::~Game()
@@ -36,15 +47,6 @@ Game::~Game()
 const bool Game::running() const
 {
 	return this->window->isOpen();
-}
-
-void Game::initializeUserInterface()
-{
-	if (!font.loadFromFile("fonts/Sign Rover Layered.ttf")) std::cerr << "Error loading font \n";
-	score.setFont(font);
-	score.setCharacterSize(24);
-	score.setFillColor(sf::Color::White);
-	score.setPosition(10, 10);
 }
 
 void Game::pollEvents()
@@ -60,13 +62,13 @@ void Game::pollEvents()
 			if (this->ev.key.code == sf::Keyboard::Escape)
 				this->window->close();
 			if (this->ev.key.code == sf::Keyboard::W)
-				desiredMove = sf::Vector2f(0, -1);
+				pacMan.setDesiredMove({ 0, -1 });
 			else if (this->ev.key.code == sf::Keyboard::S)
-				desiredMove = sf::Vector2f(0, 1);
+				pacMan.setDesiredMove({ 0, 1 });
 			else if (this->ev.key.code == sf::Keyboard::A)
-				desiredMove = sf::Vector2f(-1, 0);
+				pacMan.setDesiredMove({ -1, 0 });
 			else if (this->ev.key.code == sf::Keyboard::D)
-				desiredMove = sf::Vector2f(1, 0);
+				pacMan.setDesiredMove({ 1, 0 });
 			break;
 		}
 	}
@@ -81,11 +83,18 @@ void Game::update()
 		points++;
 	}
 
-	this->score.setString(std::to_string(points));
+	ui.update(points);
 
-	if (!map.isWallCollision(pacMan, desiredMove)) 
+	if (!collision.isWallCollision(pacMan, map)) 
 	{
-		pacMan.move(desiredMove);
+		pacMan.move();
+	}
+
+	auto mapData = map.getMapDataInt();
+
+	for (auto& ghost : ghosts)
+	{
+		ghost->move(map);
 	}
 }
 
@@ -97,13 +106,12 @@ void Game::render()
 
 	pacMan.draw(*window);
 
-	this->window->draw(score);
+	for (auto& ghost : ghosts)
+	{
+		ghost->draw(*window);
+	}
+
+	ui.draw(*window);
 
 	this->window->display();
-}
-
-void Game::maintenceMode()
-{
-	std::cout << "Pacman position: " << pacMan.getPosition().x << " " << pacMan.getPosition().y << "Current Row: " << map.currentRow << " " << "Current Column: " << map.currentColumn << "Border: " << map.collisionArea << "\n";
-	map.showVectorSize();
 }

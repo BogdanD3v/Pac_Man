@@ -1,6 +1,11 @@
 ﻿#include "PacMan.h"
 
-PacMan::PacMan(): position(368, 400), velocity(2, 2), color(sf::Color::Yellow)
+PacMan::PacMan()
+    : position(176, 704)
+    , velocity(2, 2)
+    , color(sf::Color::Yellow)
+    , desiredDirection({0,0})
+    , currentDirection({0,0})
 {
     shape.setRadius(15.0f);
     shape.setFillColor(color);
@@ -8,14 +13,19 @@ PacMan::PacMan(): position(368, 400), velocity(2, 2), color(sf::Color::Yellow)
     shape.setPosition(position);
 }
 
-void PacMan::move(sf::Vector2f direction)
+void PacMan::setDesiredMove(sf::Vector2f _desiredDirection)
 {
-    position = { shape.getPosition().x + (velocity.x * direction.x), shape.getPosition().y + (velocity.y * direction.y) };
+    desiredDirection = _desiredDirection;
+}
 
-    if (shape.getPosition().x >= 736 && direction.x == 1)
+void PacMan::move()
+{
+    position = { shape.getPosition().x + (velocity.x * currentDirection.x), shape.getPosition().y + (velocity.y * currentDirection.y) };
+
+    if (shape.getPosition().x >= 736 && currentDirection.x == 1)
         position = { 0, 416 };
 
-    else if (shape.getPosition().x <= 0 && direction.x == -1)
+    else if (shape.getPosition().x <= 0 && currentDirection.x == -1)
         position = { 736, 416 };
 
     shape.setPosition(position);
@@ -34,4 +44,14 @@ sf::Vector2f PacMan::getPosition()
 float PacMan::getRadius()
 {
     return shape.getRadius();
+}
+
+sf::Vector2f PacMan::getDesiredMove()
+{
+    return desiredDirection;
+}
+
+void PacMan::setCurrentDirection(sf::Vector2f _currentDirection)
+{
+    currentDirection = _currentDirection;
 }

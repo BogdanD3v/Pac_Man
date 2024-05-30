@@ -10,7 +10,7 @@ class Map
 private:
 
     std::vector<std::vector<bool>> mapData;
-    std::vector<std::vector<bool>> mapPoints;
+    std::vector<std::vector<bool>> mapDataPoints;
 
     sf::Color wallColor;
     sf::Color spaceColor;
@@ -18,11 +18,14 @@ private:
     sf::Texture pointTexture;
     sf::Sprite point;
 
-    const float tileSize = 32.0f;
-    float offsetY;
-    bool setCollisionArea = false;
+    int currentRow;
+    int currentColumn;
 
-    bool loadMapFromFile(const std::string& filename);
+    const float tileSize;
+
+    float offsetY;
+
+    bool loadMapFromFile(const std::string&);
     void loadMapPoints();
     int loadTextures();
 
@@ -30,15 +33,12 @@ public:
 
     Map();
 
-    bool isWallCollision(PacMan&, sf::Vector2f);
     void load(const std::string&);
     void draw(sf::RenderWindow&);
     bool isPointCollected(PacMan&);
 
-    // Maintance ----------
-    void showVectorSize();
-    int currentRow = 0;
-    int currentColumn = 0;
-    float collisionArea = 0;
-    // Maintance -----------
+    float getOffSetY();
+    const float getTileSize();
+    std::vector<std::vector<bool>> getMapData();
+    std::vector<std::vector<int>> getMapDataInt();
 };
