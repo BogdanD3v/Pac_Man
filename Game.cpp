@@ -24,11 +24,33 @@ void Game::initializeGhosts()
 		ghost->setPosition({ 368, 338 });
 		ghosts.push_back(ghost);
 	}
+
+	ghost = new Ghost;
+
+	if (ghost->loadTexture("textures/blinky.png"))
+	{
+		ghost->setPosition({ 336, 338 });
+		ghosts.push_back(ghost);
+	}
+
+	ghost = new Ghost;
+
+	if (ghost->loadTexture("textures/blinky.png"))
+	{
+		ghost->setPosition({ 304, 338 });
+		ghosts.push_back(ghost);
+	}
 }
 
 void Game::renderPacMan(sf::RenderWindow& window)
 {
 	pacMan.draw(window);
+}
+
+void Game::endOfGame()
+{
+	this->window->clear();
+	ui.endScreen();
 }
 
 Game::Game()
@@ -90,11 +112,14 @@ void Game::update()
 		pacMan.move();
 	}
 
-	auto mapData = map.getMapDataInt();
-
 	for (auto& ghost : ghosts)
 	{
 		ghost->move(map);
+	}
+
+	if (points == 243)
+	{
+		endOfGame();
 	}
 }
 

@@ -9,6 +9,7 @@ private:
 
 	sf::Text score;
 	sf::Font font;
+	sf::Text gameOver;
 
 public:
 
@@ -16,6 +17,7 @@ public:
 
 	void draw(sf::RenderWindow& window);
 	void update(int);
+	void endScreen();
 
 };
 

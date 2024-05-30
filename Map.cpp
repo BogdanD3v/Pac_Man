@@ -133,18 +133,6 @@ std::vector<std::vector<bool>> Map::getMapData()
     return mapData;
 }
 
-std::vector<std::vector<int>> Map::getMapDataInt()
-{
-    std::vector<std::vector<int>> intMapData(mapData.size(), std::vector<int>(mapData[0].size()));
-    for (size_t y = 0; y < mapData.size(); ++y) 
-    {
-        for (size_t x = 0; x < mapData[y].size(); ++x) 
-        {
-            intMapData[y][x] = mapData[y][x] ? 1 : 0;
-        }
-    }
-    return intMapData;
-}
 
 
 

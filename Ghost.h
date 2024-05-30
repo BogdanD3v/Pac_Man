@@ -15,6 +15,7 @@ private:
 
     sf::Vector2f getNextPosition();
     bool isValidMove(const sf::Vector2f& position, Map&);
+    void changeDirection();
 
 public:
     Ghost();

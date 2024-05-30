@@ -40,5 +40,4 @@ public:
     float getOffSetY();
     const float getTileSize();
     std::vector<std::vector<bool>> getMapData();
-    std::vector<std::vector<int>> getMapDataInt();
 };

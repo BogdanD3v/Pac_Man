@@ -18,3 +18,11 @@ void UserInterface::update(int points)
 {
 	this->score.setString(std::to_string(points));
 }
+
+void UserInterface::endScreen()
+{
+	gameOver.setFont(font);
+	gameOver.setCharacterSize(72);
+	gameOver.setFillColor(sf::Color::White);
+	gameOver.setPosition(150, 330);
+}
