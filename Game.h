@@ -45,8 +45,6 @@ private:
 
 	void renderPacMan(sf::RenderWindow& window);
 
-	void endOfGame();
-
 public:
 
 	Game();

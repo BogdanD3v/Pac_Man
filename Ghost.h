@@ -27,4 +27,6 @@ public:
     void move(Map&);
 
     void draw(sf::RenderWindow& window);
+
+    sf::Vector2f getPosition();
 };

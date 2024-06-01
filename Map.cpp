@@ -6,7 +6,7 @@ Map::Map()
     , currentRow(0)
     , currentColumn(0)
     , tileSize(32.f)
-{}
+    , offsetY(0) {}
 
 bool Map::loadMapFromFile(const std::string& filename)
 {

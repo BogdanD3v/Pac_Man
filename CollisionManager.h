@@ -2,6 +2,7 @@
 
 #include "PacMan.h"
 #include "Map.h"
+#include "Ghost.h"
 
 class CollisionManager
 {
@@ -19,6 +20,7 @@ private:
 	bool downSwitched;
 	bool rightSwitched;
 	bool leftSwitched;
+	bool ghostCollision;
 
 	float collisionArea = 0;
 
@@ -29,5 +31,9 @@ public:
 	CollisionManager();
 
 	bool isWallCollision(PacMan&, Map&);
+
+	void isGhostCollision(PacMan&, std::vector<Ghost*> ghosts);
+
+	bool ghostCollisionState();
 };
 

@@ -17,7 +17,7 @@ public:
 
 	void draw(sf::RenderWindow& window);
 	void update(int);
-	void endScreen();
+	void endScreen(sf::RenderWindow&);
 
 };
 

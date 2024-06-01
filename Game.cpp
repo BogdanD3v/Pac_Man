@@ -47,18 +47,11 @@ void Game::renderPacMan(sf::RenderWindow& window)
 	pacMan.draw(window);
 }
 
-void Game::endOfGame()
-{
-	this->window->clear();
-	ui.endScreen();
-}
-
-Game::Game()
+Game::Game() : points(0)
 {
 	this->initializeWindow();
 	this->initializeMap();
 	this->initializeGhosts();
-	this->points = 0;
 }
 
 Game::~Game()
@@ -107,6 +100,8 @@ void Game::update()
 
 	ui.update(points);
 
+	collision.isGhostCollision(pacMan, ghosts);
+
 	if (!collision.isWallCollision(pacMan, map)) 
 	{
 		pacMan.move();
@@ -116,27 +111,29 @@ void Game::update()
 	{
 		ghost->move(map);
 	}
-
-	if (points == 243)
-	{
-		endOfGame();
-	}
 }
 
 void Game::render()
 {
 	this->window->clear(sf::Color::Black);
 
-	map.draw(*window);
-
-	pacMan.draw(*window);
-
-	for (auto& ghost : ghosts)
+	if (points >= 243 || collision.ghostCollisionState())
 	{
-		ghost->draw(*window);
+		ui.endScreen(*window);
 	}
+	else
+	{
+		map.draw(*window);
 
-	ui.draw(*window);
+		pacMan.draw(*window);
+
+		for (auto& ghost : ghosts)
+		{
+			ghost->draw(*window);
+		}
+
+		ui.draw(*window);
+	}
 
 	this->window->display();
 }

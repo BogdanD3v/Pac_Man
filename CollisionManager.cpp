@@ -13,8 +13,8 @@ CollisionManager::CollisionManager()
     , downSwitched(false)
     , rightSwitched(false)
     , leftSwitched(false)
-    , lastDirection(0) {}
-
+    , lastDirection(0)
+    , ghostCollision(false) {}
 
 bool CollisionManager::isWallCollision(PacMan& pacMan, Map& map)
 {
@@ -132,4 +132,28 @@ bool CollisionManager::isWallCollision(PacMan& pacMan, Map& map)
     }
 
     return false;
+}
+
+void CollisionManager::isGhostCollision(PacMan& pacMan, std::vector<Ghost*> ghosts)
+{
+    for (auto ghost : ghosts)
+    {
+        if (
+            (ghost->getPosition().x <= pacMan.getPosition().x
+                &&
+                ghost->getPosition().x + 30 >= pacMan.getPosition().x)
+            &&
+            (ghost->getPosition().y <= pacMan.getPosition().y
+                &&
+                ghost->getPosition().y + 30 >= pacMan.getPosition().y)
+            )
+        {
+            ghostCollision = true;
+        }
+    }
+}
+
+bool CollisionManager::ghostCollisionState()
+{
+    return ghostCollision;
 }

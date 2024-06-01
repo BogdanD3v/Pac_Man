@@ -59,6 +59,11 @@ void Ghost::draw(sf::RenderWindow& window)
     window.draw(sprite);
 }
 
+sf::Vector2f Ghost::getPosition()
+{
+    return sprite.getPosition();
+}
+
 sf::Vector2f Ghost::getNextPosition()
 {
     return sprite.getPosition() + direction * velocity;
