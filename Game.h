@@ -5,6 +5,7 @@
 #include "CollisionManager.h"
 #include "UserInterface.h"
 #include "Ghost.h"
+#include "Character.h"
 
 #include <iostream>
 #include <vector>
@@ -19,7 +20,7 @@ class Game
 {
 private:
 
-	std::vector<Ghost*> ghosts;
+	std::vector<Character*> ghosts;
 
 	sf::RenderWindow* window;
 	sf::VideoMode videoMode;
@@ -30,8 +31,6 @@ private:
 	Map map;
 
 	PacMan pacMan;
-
-	Ghost* ghost;
 
 	CollisionManager collision;
 

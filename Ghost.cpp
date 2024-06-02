@@ -3,10 +3,11 @@
 #include <ctime>
 #include <iostream>
 
-Ghost::Ghost()
-    : direction(1.0f, 0.0f)
-    , velocity(2.0f) 
+Ghost::Ghost(sf::Vector2f startPosition)
+    : Character(startPosition)
+    , velocity()
 {
+    sprite.setPosition(startPosition);
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
 }
 
@@ -37,7 +38,7 @@ void Ghost::move(Map& map)
     int mapX;
     int mapY;
 
-    if (direction.x == 1 && direction.y == 0 || direction.x == 0 && direction.y == 1)
+    if (currentDirection.x == 1 && currentDirection.y == 0 || currentDirection.x == 0 && currentDirection.y == 1)
     {
         mapX = static_cast<int>((sprite.getPosition().x + 30.f) / map.getTileSize());
         mapY = static_cast<int>(((sprite.getPosition().y - map.getOffSetY()) + 30.f) / map.getTileSize());
@@ -72,7 +73,7 @@ sf::Vector2f Ghost::getPosition()
 
 sf::Vector2f Ghost::getNextPosition()
 {
-    return sprite.getPosition() + direction * velocity;
+    return sprite.getPosition() + currentDirection * velocity;
 }
 
 bool Ghost::isValidMove(const sf::Vector2f& position, Map& map)
@@ -80,7 +81,7 @@ bool Ghost::isValidMove(const sf::Vector2f& position, Map& map)
     int mapX;
     int mapY;
 
-    if (direction.x == 1 && direction.y == 0 || direction.x == 0 && direction.y == 1)
+    if (currentDirection.x == 1 && currentDirection.y == 0 || currentDirection.x == 0 && currentDirection.y == 1)
     {
         mapX = static_cast<int>((position.x + 30.f) / map.getTileSize());
         mapY = static_cast<int>(((position.y - map.getOffSetY()) + 30.f) / map.getTileSize());
@@ -106,16 +107,16 @@ void Ghost::changeDirection()
     switch (changeDirection)
     {
     case 1:
-        direction = { 1,0 };
+        currentDirection = { 1,0 };
         break;
     case 2:
-        direction = { -1,0 };
+        currentDirection = { -1,0 };
         break;
     case 3:
-        direction = { 0,1 };
+        currentDirection = { 0,1 };
         break;
     case 4:
-        direction = { 0,-1 };
+        currentDirection = { 0,-1 };
         break;
     default:
         break;

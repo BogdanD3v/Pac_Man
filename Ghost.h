@@ -3,15 +3,18 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <vector>
+
+#include "Character.h"
 #include "Map.h"
 
-class Ghost
+class Ghost : public Character
 {
 private:
 
+    sf::Vector2f currentDirection;
+    sf::Vector2f position;
     sf::Sprite sprite;
     sf::Texture texture;
-    sf::Vector2f direction;
     float velocity;
 
     sf::Vector2f getNextPosition();
@@ -19,16 +22,16 @@ private:
     void changeDirection();
 
 public:
-    Ghost();
+    Ghost(sf::Vector2f);
     ~Ghost();
 
-    bool loadTexture(const std::string&);
+    bool loadTexture(const std::string&) override;
 
-    void setPosition(const sf::Vector2f&);
+    void setPosition(const sf::Vector2f&) override;
 
-    void move(Map&);
+    void move(Map&) override;
 
-    void draw(sf::RenderWindow& window);
+    void draw(sf::RenderWindow&) override;
 
-    sf::Vector2f getPosition();
+    sf::Vector2f getPosition() override;
 };

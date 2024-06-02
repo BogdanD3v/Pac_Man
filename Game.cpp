@@ -17,15 +17,12 @@ void Game::initializeMap()
 
 void Game::initializeGhosts()
 {
-
 	for (float i = 0; i < 4; i++)
 	{
-		ghost = new Ghost;
-
-		if (ghost->loadTexture("textures/blinky.png"))
+		Character* character = new Ghost({ 272 + (i * 32.f), 338 });
+		if (character->loadTexture("textures/blinky.png"))
 		{
-			ghost->setPosition({ 272 + (i*32.f), 338});
-			ghosts.push_back(ghost);
+			ghosts.push_back(character);
 		}
 	}
 }

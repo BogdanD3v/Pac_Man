@@ -32,7 +32,7 @@ public:
 
 	bool isWallCollision(PacMan&, Map&);
 
-	void isGhostCollision(PacMan&, std::vector<Ghost*> ghosts);
+	void isGhostCollision(PacMan&, std::vector<Character*> ghosts);
 
 	bool ghostCollisionState();
 };

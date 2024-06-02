@@ -111,7 +111,7 @@ bool CollisionManager::isWallCollision(PacMan& pacMan, Map& map)
     return false;
 }
 
-void CollisionManager::isGhostCollision(PacMan& pacMan, std::vector<Ghost*> ghosts)
+void CollisionManager::isGhostCollision(PacMan& pacMan, std::vector<Character*> ghosts)
 {
     for (auto ghost : ghosts)
     {
