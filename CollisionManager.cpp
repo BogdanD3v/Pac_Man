@@ -27,49 +27,26 @@ bool CollisionManager::isWallCollision(PacMan& pacMan, Map& map)
 
     if (previousRow < 0)
         previousRow = 0;
-
     if (previousColumn < 0)
         previousColumn = 0;
-
     if (nextRow > map.getMapData().size())
         nextRow = map.getMapData().size();
-
     if (nextColumn >= 22)
         nextColumn = 22;
 
-    if (pacMan.getDesiredMove().y < 0 && !map.getMapData()[previousRow][currentColumn] && upSwitched == false)
-    {
-        pacMan.setCurrentDirection(pacMan.getDesiredMove());
-        upSwitched = true;
-        downSwitched = false;
-        rightSwitched = false;
-        leftSwitched = false;
-    }
-    else if (pacMan.getDesiredMove().y > 0 && !map.getMapData()[nextRow][currentColumn] && downSwitched == false)
-    {
-        pacMan.setCurrentDirection(pacMan.getDesiredMove());
-        upSwitched = false;
-        downSwitched = true;
-        rightSwitched = false;
-        leftSwitched = false;
-    }
-    else if (pacMan.getDesiredMove().x < 0 && !map.getMapData()[currentRow][previousColumn] && leftSwitched == false)
-    {
-        pacMan.setCurrentDirection(pacMan.getDesiredMove());
-        upSwitched = false;
-        downSwitched = false;
-        rightSwitched = false;
-        leftSwitched = true;
-    }
-    else if (pacMan.getDesiredMove().x > 0 && !map.getMapData()[currentRow][nextColumn] && rightSwitched == false)
-    {
-        pacMan.setCurrentDirection(pacMan.getDesiredMove());
-        upSwitched = false;
-        downSwitched = false;
-        rightSwitched = true;
-        leftSwitched = false;
-    }
+    auto updateDirection = [&](float x, float y, bool& switchFlag, int row, int column, float nextPosition, bool& other1, bool& other2, bool& other3) {
+        if (pacMan.getDesiredMove().x == x && pacMan.getDesiredMove().y == y && !map.getMapData()[row][column] && !switchFlag) 
+        {
+            pacMan.setCurrentDirection(pacMan.getDesiredMove());
+            switchFlag = true;
+            other1 = other2 = other3 = false;
+        }
+    };
 
+    updateDirection(0, -1, upSwitched, previousRow, currentColumn, pacMan.getPosition().y, downSwitched, rightSwitched, leftSwitched);
+    updateDirection(0, 1, downSwitched, nextRow, currentColumn, pacMan.getPosition().y, upSwitched, rightSwitched, leftSwitched);
+    updateDirection(-1, 0, leftSwitched, currentRow, previousColumn, pacMan.getPosition().x, upSwitched, downSwitched, rightSwitched);
+    updateDirection(1, 0, rightSwitched, currentRow, nextColumn, pacMan.getPosition().x, upSwitched, downSwitched, leftSwitched);
 
     if (pacMan.getDesiredMove().y < 0)
     {

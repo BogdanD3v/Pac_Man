@@ -17,28 +17,16 @@ void Game::initializeMap()
 
 void Game::initializeGhosts()
 {
-	ghost = new Ghost;
 
-	if (ghost->loadTexture("textures/blinky.png")) 
+	for (float i = 0; i < 4; i++)
 	{
-		ghost->setPosition({ 368, 338 });
-		ghosts.push_back(ghost);
-	}
+		ghost = new Ghost;
 
-	ghost = new Ghost;
-
-	if (ghost->loadTexture("textures/blinky.png"))
-	{
-		ghost->setPosition({ 336, 338 });
-		ghosts.push_back(ghost);
-	}
-
-	ghost = new Ghost;
-
-	if (ghost->loadTexture("textures/blinky.png"))
-	{
-		ghost->setPosition({ 304, 338 });
-		ghosts.push_back(ghost);
+		if (ghost->loadTexture("textures/blinky.png"))
+		{
+			ghost->setPosition({ 272 + (i*32.f), 338});
+			ghosts.push_back(ghost);
+		}
 	}
 }
 
@@ -119,7 +107,7 @@ void Game::render()
 
 	if (points >= 243 || collision.ghostCollisionState())
 	{
-		ui.endScreen(*window);
+		ui.drawEndScreen(*window);
 	}
 	else
 	{
@@ -132,7 +120,9 @@ void Game::render()
 			ghost->draw(*window);
 		}
 
-		ui.draw(*window);
+		ui.drawScoreTitle(*window);
+
+		ui.drawScore(*window);
 	}
 
 	this->window->display();

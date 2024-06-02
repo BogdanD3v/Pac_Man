@@ -19,11 +19,11 @@ class Game
 {
 private:
 
+	std::vector<Ghost*> ghosts;
+
 	sf::RenderWindow* window;
 	sf::VideoMode videoMode;
 	sf::Event ev;
-
-	std::vector<Ghost*> ghosts;
 
 	int points;
 

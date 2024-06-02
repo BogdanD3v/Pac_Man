@@ -7,17 +7,20 @@ class UserInterface
 {
 private:
 
-	sf::Text score;
-	sf::Font font;
+	sf::Text scoreTitle;
 	sf::Text gameOver;
+	sf::Text score;
+
+	sf::Font font;
 
 public:
 
 	UserInterface();
 
-	void draw(sf::RenderWindow& window);
 	void update(int);
-	void endScreen(sf::RenderWindow&);
+	void drawScoreTitle(sf::RenderWindow&);
+	void drawScore(sf::RenderWindow& window);
+	void drawEndScreen(sf::RenderWindow&);
 
 };
 

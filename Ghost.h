@@ -8,21 +8,23 @@
 class Ghost
 {
 private:
+
     sf::Sprite sprite;
     sf::Texture texture;
     sf::Vector2f direction;
     float velocity;
 
     sf::Vector2f getNextPosition();
-    bool isValidMove(const sf::Vector2f& position, Map&);
+    bool isValidMove(const sf::Vector2f&, Map&);
     void changeDirection();
 
 public:
     Ghost();
+    ~Ghost();
 
-    bool loadTexture(const std::string& filename);
+    bool loadTexture(const std::string&);
 
-    void setPosition(const sf::Vector2f& position);
+    void setPosition(const sf::Vector2f&);
 
     void move(Map&);
 

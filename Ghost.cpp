@@ -10,10 +10,16 @@ Ghost::Ghost()
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
 }
 
+Ghost::~Ghost()
+{
+    texture.~Texture();
+}
+
 bool Ghost::loadTexture(const std::string& filename)
 {
     if (!texture.loadFromFile(filename))
     {
+        std::cerr << "Fail to load ghost texture!" << "\n";
         return false;
     }
     sprite.setTexture(texture);

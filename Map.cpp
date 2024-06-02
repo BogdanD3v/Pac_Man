@@ -14,6 +14,7 @@ bool Map::loadMapFromFile(const std::string& filename)
 
     if (!file.is_open()) 
     {
+        std::cerr << "Failed to load map data file!" << "\n";
         return false;
     }
 
@@ -57,7 +58,10 @@ void Map::loadMapPoints()
 int Map::loadTextures()
 {
     if (!pointTexture.loadFromFile("textures/pill.png"))
+    {
+        std::cerr << "Failed to load map textures!" << "\n";
         return 1;
+    }
 
     point.setTexture(pointTexture);
 }
