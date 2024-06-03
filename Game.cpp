@@ -15,17 +15,18 @@ void Game::initializeMap()
 	map.load("MapScheme.txt");
 }
 
-void Game::initializeGhosts()
+void Game::initializeGhosts() 
 {
-	for (float i = 0; i < 4; i++)
+	for (float i = 0; i < 6; i++) 
 	{
-		Character* character = new Ghost({ 272 + (i * 32.f), 338 });
+		Character* character = new Ghost({ 272 + (i * 32.f), 336 });
 		if (character->loadTexture("textures/blinky.png"))
-		{
 			ghosts.push_back(character);
-		}
+		else
+			std::cerr << "Failed to initialize ghost!" << "\n";
 	}
 }
+
 
 void Game::renderPacMan(sf::RenderWindow& window)
 {

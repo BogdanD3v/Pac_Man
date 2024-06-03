@@ -5,7 +5,7 @@
 
 Ghost::Ghost(sf::Vector2f startPosition)
     : Character(startPosition)
-    , velocity()
+    , velocity(2.f)
 {
     sprite.setPosition(startPosition);
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
