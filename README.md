@@ -13,21 +13,41 @@ Clone game of Pac Man.
 - To win, collect all the points on the map.
 - Avoid the ghosts! If a ghost catches you, it's game over.
 
-## Installation
+## Installation Steps
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/pac-man.git
+    git clone https://github.com/BogdanD3v/pac-man.git
     ```
+    This step downloads a copy of the project from GitHub to your local computer.
+
 2. Navigate to the project directory:
     ```bash
     cd pac-man
     ```
-3. Install the necessary dependencies (if any):
-    ```bash
-    # Example for a Python project
-    pip install -r requirements.txt
-    ```
+    This step changes the current working directory to the `pac-man` project directory.
+
+3. Configure the project in your IDE (e.g., Visual Studio):
+
+    1. Open the project in Visual Studio.
+
+    2. Change the path in the project properties:
+        - Go to `Project` -> `Properties` -> `Configuration Properties` -> `C/C++` -> `General`.
+        - In `Additional Include Directories`, add the path to `...\SFML-2.6.1\include`.
+
+    3. Change the path for the Linker:
+        - Go to `Project` -> `Properties` -> `Configuration Properties` -> `Linker` -> `General`.
+        - In `Additional Library Directories`, add the path to `...\SFML-2.6.1\lib`.
+
+    4. Change the path for the Debugger:
+        - Go to `Project` -> `Properties` -> `Configuration Properties` -> `Debugging`.
+        - In `Environment`, add `PATH=...\SFML-2.6.1\bin`.
+
+4. Build and run the project:
+    - In Visual Studio, select `Build` -> `Build Solution` to compile the project.
+    - After compiling, select `Debug` -> `Start Debugging` or `Start Without Debugging` to run the game.
+
+Your Pac-Man game should now run correctly.
 
 ## How to Play
 
