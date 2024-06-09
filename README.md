@@ -9,6 +9,7 @@ Clone game of Pac-Man.
   - `A` - Move Left
   - `S` - Move Down
   - `D` - Move Right
+- Press `Esc` to close the game.
 - You have one life to complete the game.
 - To win, collect all the points on the map.
 - Avoid the ghosts! If a ghost catches you, it's game over.
