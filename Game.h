@@ -8,6 +8,7 @@
 #include "Character.h"
 #include "ObjectManager.hpp"
 #include "Logger.h"
+#include "Direction.h"
 
 #include <iostream>
 #include <vector>

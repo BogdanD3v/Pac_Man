@@ -4,8 +4,8 @@ PacMan::PacMan()
     : position(176, 704)
     , velocity(2, 2)
     , color(sf::Color::Yellow)
-    , desiredDirection({0,0})
-    , currentDirection({0,0})
+    , desiredDirection(Direction::None)
+    , currentDirection(Direction::None)
 {
     shape.setRadius(15.0f);
     shape.setFillColor(color);
@@ -13,19 +13,35 @@ PacMan::PacMan()
     shape.setPosition(position);
 }
 
-void PacMan::setDesiredMove(sf::Vector2f _desiredDirection)
+void PacMan::setDesiredMove(Direction _desiredDirection)
 {
     desiredDirection = _desiredDirection;
 }
 
 void PacMan::move()
 {
-    position = { shape.getPosition().x + (velocity.x * currentDirection.x), shape.getPosition().y + (velocity.y * currentDirection.y) };
+    switch (currentDirection)
+    {
+    case Direction::Up:
+        position.y -= velocity.y;
+        break;
+    case Direction::Down:
+        position.y += velocity.y;
+        break;
+    case Direction::Left:
+        position.x -= velocity.x;
+        break;
+    case Direction::Right:
+        position.x += velocity.x;
+        break;
+    default:
+        break;
+    }
 
-    if (shape.getPosition().x >= 736 && currentDirection.x == 1)
+    if (shape.getPosition().x >= 736 && currentDirection == Direction::Right)
         position = { 0, 416 };
 
-    else if (shape.getPosition().x <= 0 && currentDirection.x == -1)
+    else if (shape.getPosition().x <= 0 && currentDirection == Direction::Left)
         position = { 736, 416 };
 
     shape.setPosition(position);
@@ -46,12 +62,26 @@ float PacMan::getRadius()
     return shape.getRadius();
 }
 
-sf::Vector2f PacMan::getDesiredMove()
+Direction PacMan::getDesiredMove()
 {
     return desiredDirection;
 }
 
-void PacMan::setCurrentDirection(sf::Vector2f _currentDirection)
+void PacMan::setCurrentDirection(Direction _currentDirection)
 {
     currentDirection = _currentDirection;
+}
+
+Direction PacMan::getCurrentDirection()
+{
+    return currentDirection;
+}
+
+std::ostream& operator<<(std::ostream& os, const PacMan& pacman)
+{
+    os << "Position: (" << pacman.position.x << ", " << pacman.position.y << "), "
+        << "Velocity: (" << pacman.velocity.x << ", " << pacman.velocity.y << "), "
+        << "Current Direction: " << toString(pacman.currentDirection) << ", "
+        << "Desired Direction: " << toString(pacman.desiredDirection);
+    return os;
 }

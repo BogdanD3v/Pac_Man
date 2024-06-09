@@ -67,13 +67,13 @@ void Game::pollEvents()
 			if (this->ev.key.code == sf::Keyboard::Escape)
 				this->window->close();
 			if (this->ev.key.code == sf::Keyboard::W)
-				pacMan.setDesiredMove({ 0, -1 });
+				pacMan.setDesiredMove(Direction::Up);
 			else if (this->ev.key.code == sf::Keyboard::S)
-				pacMan.setDesiredMove({ 0, 1 });
+				pacMan.setDesiredMove(Direction::Down);
 			else if (this->ev.key.code == sf::Keyboard::A)
-				pacMan.setDesiredMove({ -1, 0 });
+				pacMan.setDesiredMove(Direction::Left);
 			else if (this->ev.key.code == sf::Keyboard::D)
-				pacMan.setDesiredMove({ 1, 0 });
+				pacMan.setDesiredMove(Direction::Right);
 			break;
 		}
 	}
@@ -98,6 +98,8 @@ void Game::update()
 	}
 
 	ghostManager.move(map);
+
+	std::cout << pacMan << "\n";
 }
 
 void Game::render()

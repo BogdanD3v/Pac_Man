@@ -4,6 +4,7 @@
 #include "Map.h"
 #include "Ghost.h"
 #include "ObjectManager.hpp"
+#include "Direction.h"
 
 class CollisionManager
 {

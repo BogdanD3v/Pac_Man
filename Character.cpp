@@ -7,4 +7,3 @@ Character::Character(sf::Vector2f startPosition)
 
 Character::~Character() {}
 
-

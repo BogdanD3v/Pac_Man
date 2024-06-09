@@ -34,21 +34,21 @@ bool CollisionManager::isWallCollision(PacMan& pacMan, Map& map)
     if (nextColumn >= 22)
         nextColumn = 22;
 
-    auto updateDirection = [&](float x, float y, bool& switchFlag, int row, int column, float nextPosition, bool& other1, bool& other2, bool& other3) {
-        if (pacMan.getDesiredMove().x == x && pacMan.getDesiredMove().y == y && !map.getMapData()[row][column] && !switchFlag) 
+    auto updateDirection = [&](Direction direction, bool& switchFlag, int row, int column, float nextPosition, bool& other1, bool& other2, bool& other3) {
+        if (pacMan.getDesiredMove() == direction && !map.getMapData()[row][column] && !switchFlag) 
         {
-            pacMan.setCurrentDirection(pacMan.getDesiredMove());
+            pacMan.setCurrentDirection(direction);
             switchFlag = true;
             other1 = other2 = other3 = false;
         }
     };
 
-    updateDirection(0, -1, upSwitched, previousRow, currentColumn, pacMan.getPosition().y, downSwitched, rightSwitched, leftSwitched);
-    updateDirection(0, 1, downSwitched, nextRow, currentColumn, pacMan.getPosition().y, upSwitched, rightSwitched, leftSwitched);
-    updateDirection(-1, 0, leftSwitched, currentRow, previousColumn, pacMan.getPosition().x, upSwitched, downSwitched, rightSwitched);
-    updateDirection(1, 0, rightSwitched, currentRow, nextColumn, pacMan.getPosition().x, upSwitched, downSwitched, leftSwitched);
+    updateDirection(Direction::Up, upSwitched, previousRow, currentColumn, pacMan.getPosition().y, downSwitched, rightSwitched, leftSwitched);
+    updateDirection(Direction::Down, downSwitched, nextRow, currentColumn, pacMan.getPosition().y, upSwitched, rightSwitched, leftSwitched);
+    updateDirection(Direction::Left, leftSwitched, currentRow, previousColumn, pacMan.getPosition().x, upSwitched, downSwitched, rightSwitched);
+    updateDirection(Direction::Right, rightSwitched, currentRow, nextColumn, pacMan.getPosition().x, upSwitched, downSwitched, leftSwitched);
 
-    if (pacMan.getDesiredMove().y < 0)
+    if (pacMan.getDesiredMove() == Direction::Up)
     {
         if (map.getMapData()[previousRow][currentColumn] && !setCollisionArea)
         {
@@ -63,7 +63,7 @@ bool CollisionManager::isWallCollision(PacMan& pacMan, Map& map)
         }
     }
 
-    if (pacMan.getDesiredMove().y > 0)
+    if (pacMan.getDesiredMove() == Direction::Down)
     {
         if (map.getMapData()[nextRow][currentColumn] && !setCollisionArea)
         {
@@ -78,7 +78,7 @@ bool CollisionManager::isWallCollision(PacMan& pacMan, Map& map)
         }
     }
 
-    if (pacMan.getDesiredMove().x > 0)
+    if (pacMan.getDesiredMove() == Direction::Right)
     {
         if (map.getMapData()[currentRow][nextColumn] && !setCollisionArea)
         {
@@ -93,7 +93,7 @@ bool CollisionManager::isWallCollision(PacMan& pacMan, Map& map)
         }
     }
 
-    if (pacMan.getDesiredMove().x < 0)
+    if (pacMan.getDesiredMove() == Direction::Left)
     {
         if (map.getMapData()[currentRow][previousColumn] && !setCollisionArea)
         {
