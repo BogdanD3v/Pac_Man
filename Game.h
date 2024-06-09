@@ -6,7 +6,7 @@
 #include "UserInterface.h"
 #include "Ghost.h"
 #include "Character.h"
-#include "ObjectManager.h"
+#include "ObjectManager.hpp"
 
 #include <iostream>
 #include <vector>
@@ -20,8 +20,6 @@
 class Game
 {
 private:
-
-	std::vector<Character*> ghosts;
 
 	sf::RenderWindow* window;
 	sf::VideoMode videoMode;
@@ -38,8 +36,6 @@ private:
 	UserInterface ui;
 
 	ObjectManager<Character*> ghostManager;
-
-	ObjectManager<PacMan> pacManManager;
 
 	void initializeWindow();
 

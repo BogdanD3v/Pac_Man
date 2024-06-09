@@ -3,6 +3,7 @@
 #include "PacMan.h"
 #include "Map.h"
 #include "Ghost.h"
+#include "ObjectManager.hpp"
 
 class CollisionManager
 {
@@ -32,7 +33,7 @@ public:
 
 	bool isWallCollision(PacMan&, Map&);
 
-	void isGhostCollision(PacMan&, std::vector<Character*> ghosts);
+	void isGhostCollision(PacMan&, ObjectManager<Character*>&);
 
 	bool ghostCollisionState();
 };

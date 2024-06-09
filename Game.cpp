@@ -85,7 +85,7 @@ void Game::update()
 
 	ui.update(points);
 
-	collision.isGhostCollision(pacMan, ghosts);
+	collision.isGhostCollision(pacMan, ghostManager);
 
 	if (!collision.isWallCollision(pacMan, map)) 
 	{

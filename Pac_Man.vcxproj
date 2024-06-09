@@ -136,7 +136,6 @@
     <ClCompile Include="Ghost.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
-    <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="PacMan.cpp" />
     <ClCompile Include="UserInterface.cpp" />
   </ItemGroup>
@@ -146,7 +145,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Ghost.h" />
     <ClInclude Include="Map.h" />
-    <ClInclude Include="ObjectManager.h" />
+    <ClInclude Include="ObjectManager.hpp" />
     <ClInclude Include="PacMan.h" />
     <ClInclude Include="UserInterface.h" />
   </ItemGroup>
