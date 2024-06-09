@@ -21,12 +21,11 @@ void Game::initializeGhosts()
 	{
 		Character* character = new Ghost({ 272 + (i * 32.f), 336 });
 		if (character->loadTexture("textures/blinky.png"))
-			ghosts.push_back(character);
+			ghostManager.addObject(character);
 		else
 			std::cerr << "Failed to initialize ghost!" << "\n";
 	}
 }
-
 
 void Game::renderPacMan(sf::RenderWindow& window)
 {
@@ -93,10 +92,7 @@ void Game::update()
 		pacMan.move();
 	}
 
-	for (auto& ghost : ghosts)
-	{
-		ghost->move(map);
-	}
+	ghostManager.move(map);
 }
 
 void Game::render()
@@ -113,10 +109,7 @@ void Game::render()
 
 		pacMan.draw(*window);
 
-		for (auto& ghost : ghosts)
-		{
-			ghost->draw(*window);
-		}
+		ghostManager.drawAll(*window);
 
 		ui.drawScoreTitle(*window);
 

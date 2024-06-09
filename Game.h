@@ -6,6 +6,7 @@
 #include "UserInterface.h"
 #include "Ghost.h"
 #include "Character.h"
+#include "ObjectManager.h"
 
 #include <iostream>
 #include <vector>
@@ -35,6 +36,10 @@ private:
 	CollisionManager collision;
 
 	UserInterface ui;
+
+	ObjectManager<Character*> ghostManager;
+
+	ObjectManager<PacMan> pacManManager;
 
 	void initializeWindow();
 
