@@ -12,7 +12,7 @@ void Game::initializeWindow()
 
 void Game::initializeMap()
 {
-	map.load("MapScheme.txt");
+	map.load("MapScheme.txt", logger);
 }
 
 void Game::initializeGhosts() 
@@ -20,10 +20,15 @@ void Game::initializeGhosts()
 	for (float i = 0; i < 6; i++) 
 	{
 		Character* character = new Ghost({ 272 + (i * 32.f), 336 });
-		if (character->loadTexture("textures/blinky.png"))
+		if (character->loadTexture("textures/blinky.png", logger))
+		{
 			ghostManager.addObject(character);
+		}
 		else
+		{
 			std::cerr << "Failed to initialize ghost!" << "\n";
+			logger.logError("Failed to initialize ghost!");
+		}
 	}
 }
 

@@ -7,6 +7,7 @@
 #include "Ghost.h"
 #include "Character.h"
 #include "ObjectManager.hpp"
+#include "Logger.h"
 
 #include <iostream>
 #include <vector>
@@ -36,6 +37,8 @@ private:
 	UserInterface ui;
 
 	ObjectManager<Character*> ghostManager;
+
+	Logger logger;
 
 	void initializeWindow();
 

@@ -134,6 +134,7 @@
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Ghost.cpp" />
+    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="PacMan.cpp" />
@@ -144,6 +145,7 @@
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Ghost.h" />
+    <ClInclude Include="Logger.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="ObjectManager.hpp" />
     <ClInclude Include="PacMan.h" />

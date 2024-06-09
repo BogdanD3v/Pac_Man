@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <SFML/Graphics.hpp>
 #include "PacMan.h"
+#include "Logger.h"
 #include <vector>
 #include <fstream>
 #include <iostream>
@@ -25,15 +26,15 @@ private:
 
     float offsetY;
 
-    bool loadMapFromFile(const std::string&);
+    bool loadMapFromFile(const std::string&, Logger&);
     void loadMapPoints();
-    int loadTextures();
+    int loadTextures(Logger&);
 
 public:
 
     Map();
 
-    void load(const std::string&);
+    void load(const std::string&, Logger&);
     void draw(sf::RenderWindow&);
     bool isPointCollected(PacMan&);
 

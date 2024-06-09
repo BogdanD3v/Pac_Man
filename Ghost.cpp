@@ -16,11 +16,12 @@ Ghost::~Ghost()
     texture.~Texture();
 }
 
-bool Ghost::loadTexture(const std::string& filename)
+bool Ghost::loadTexture(const std::string& filename, Logger& logger)
 {
     if (!texture.loadFromFile(filename))
     {
         std::cerr << "Fail to load ghost texture!" << "\n";
+        logger.logError("Fail to load ghost texture!");
         return false;
     }
     sprite.setTexture(texture);

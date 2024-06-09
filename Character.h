@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Map.h"
+#include "Logger.h"
 
 class Character
 {
@@ -19,7 +20,7 @@ public:
 
     virtual ~Character();
 
-    virtual bool loadTexture(const std::string&) = 0;
+    virtual bool loadTexture(const std::string&, Logger&) = 0;
 
     virtual void setPosition(const sf::Vector2f&) = 0;
 

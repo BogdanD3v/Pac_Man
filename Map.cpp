@@ -8,13 +8,14 @@ Map::Map()
     , tileSize(32.f)
     , offsetY(0) {}
 
-bool Map::loadMapFromFile(const std::string& filename)
+bool Map::loadMapFromFile(const std::string& filename, Logger& logger)
 {
     std::ifstream file(filename);
 
     if (!file.is_open()) 
     {
         std::cerr << "Failed to load map data file!" << "\n";
+        logger.logError("Failed to load map data file!");
         return false;
     }
 
@@ -55,21 +56,22 @@ void Map::loadMapPoints()
     }
 }
 
-int Map::loadTextures()
+int Map::loadTextures(Logger& logger)
 {
     if (!pointTexture.loadFromFile("textures/pill.png"))
     {
         std::cerr << "Failed to load map textures!" << "\n";
+        logger.logError("Failed to load map textures!");
         return 1;
     }
 
     point.setTexture(pointTexture);
 }
 
-void Map::load(const std::string& filename)
+void Map::load(const std::string& filename, Logger& logger)
 {
-    loadMapFromFile(filename);
-    loadTextures();
+    loadMapFromFile(filename, logger);
+    loadTextures(logger);
     loadMapPoints();
 }
 

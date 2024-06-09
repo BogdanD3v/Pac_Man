@@ -6,6 +6,7 @@
 
 #include "Character.h"
 #include "Map.h"
+#include "Logger.h"
 
 class Ghost : public Character
 {
@@ -25,7 +26,7 @@ public:
     Ghost(sf::Vector2f);
     ~Ghost();
 
-    bool loadTexture(const std::string&) override;
+    bool loadTexture(const std::string&, Logger&) override;
 
     void setPosition(const sf::Vector2f&) override;
 
